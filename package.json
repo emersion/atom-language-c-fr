@@ -5,7 +5,7 @@
   "homepage": "https://git.saucisseroyale.fr.cr/emersion/atom-language-c-fr",
   "repository": {
     "type": "git",
-    "url": "https://git.saucisseroyale.fr.cr/emersion/atom-language-c-fr.git"
+    "url": "https://github.com/emersion/atom-language-c-fr.git"
   },
   "license": "MIT",
   "bugs": {
