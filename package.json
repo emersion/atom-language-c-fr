@@ -1,5 +1,5 @@
 {
-  "version": "0.60.0",
+  "version": "0.61.0",
   "name": "language-c-fr",
   "description": "Support du langage C/C++ français pour Atom",
   "homepage": "https://git.saucisseroyale.fr.cr/emersion/atom-language-c-fr",
