@@ -1,10 +1,10 @@
-'scopeName': 'source.c'
+'scopeName': 'source.c.fr'
 'fileTypes': [
-  'c'
-  'h.in'
+  'c.fr'
+  'h.in.fr'
 ]
 'firstLineMatch': '(?i)-\\*-[^*]*(Mode:\\s*)?C(\\s*;.*?)?\\s*-\\*-'
-'name': 'C'
+'name': 'C.fr'
 'patterns': [
   {
     'include': '#preprocessor-rule-enabled'
