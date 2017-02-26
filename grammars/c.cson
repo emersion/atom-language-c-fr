@@ -19,19 +19,19 @@
     'include': '#comments'
   }
   {
-    'match': '\\b(break|case|continue|default|do|else|for|goto|if|_Pragma|return|switch|while)\\b'
+    'match': '\\b(casser|cas|continuer|par défaut|faire|sinon|pour|aller à|si|_Pragma|retourner|commuter|tant que)\\b'
     'name': 'keyword.control.c'
   }
   {
-    'match': '\\b(asm|__asm__|auto|bool|_Bool|char|_Complex|double|enum|float|_Imaginary|int|long|short|signed|struct|typedef|union|unsigned|void)\\b'
+    'match': '\\b(asm|__asm__|automatique|bool|_Bool|caractère|_Complex|double|énumération|flottant|_Imaginary|entier|long|court|signé|structure|définir un type|union|non signé|vide)\\b'
     'name': 'storage.type.c'
   }
   {
-    'match': '\\b(const|extern|register|restrict|static|volatile|inline)\\b'
+    'match': '\\b(constant|externe|mettre en registre|restrict|statique|volatile|inline)\\b'
     'name': 'storage.modifier.c'
   }
   {
-    # Common naming idiom for C constants: "kConstantVariable"
+    # Common naming idiom pour C constants: "kConstantVariable"
     'match': '\\bk[A-Z]\\w*\\b'
     'name': 'constant.other.variable.mac-classic.c'
   }
@@ -44,7 +44,7 @@
     'name': 'variable.other.readwrite.static.mac-classic.c'
   }
   {
-    'match': '\\b(NULL|true|false|TRUE|FALSE)\\b'
+    'match': '\\b(NUL|true|false|TRUE|FALSE)\\b'
     'name': 'constant.language.c'
   }
   {
@@ -220,7 +220,7 @@
     ]
   }
   {
-    'match': '\\b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|qaddr_t|caddr_t|daddr_t|div_t|dev_t|fixpt_t|blkcnt_t|blksize_t|gid_t|in_addr_t|in_port_t|ino_t|key_t|mode_t|nlink_t|id_t|pid_t|off_t|segsz_t|swblk_t|uid_t|id_t|clock_t|size_t|ssize_t|time_t|useconds_t|suseconds_t)\\b'
+    'match': '\\b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|qaddr_t|caddr_t|daddr_t|div_t|dev_t|fixpt_t|blkcnt_t|blksize_t|gid_t|in_addr_t|in_port_t|ino_t|key_t|mode_t|nlink_t|id_t|pid_t|off_t|segsz_t|swblk_t|uid_t|id_t|clock_t|taille_t|ssize_t|time_t|useconds_t|suseconds_t)\\b'
     'name': 'support.type.sys-types.c'
   }
   {
@@ -266,12 +266,12 @@
       (?:
         ^ |
         (?:
-          (?=\\s)(?<!else|new|return)(?<=\\w)  # word + space before name
+          (?=\\s)(?<!sinon|new|retourner)(?<=\\w)  # word + space before name
           |
           (?=\\s*[A-Za-z_])(?<!&&)(?<=[*&>])   # type modifier before name
         )
       )
-      (\\s*)(?!(while|for|do|if|else|switch|catch|enumerate|return|sizeof|[cr]?iterate)\\s*\\()
+      (\\s*)(?!(tant que|pour|faire|si|sinon|commuter|catch|enumerate|retourner|taille de|[cr]?iterate)\\s*\\()
       (
         (?:[A-Za-z_][A-Za-z0-9_]*+|::)++  # actual name
         |
@@ -296,7 +296,7 @@
         'include': '#parens'
       }
       {
-        'match': '\\b(const)\\b'
+        'match': '\\b(constant)\\b'
         'name': 'storage.modifier.c'
       }
       {
@@ -325,7 +325,7 @@
         'beginCaptures':
           '0':
             'name': 'punctuation.section.block.begin.c'
-        'end': '\\}|(?=\\s*#\\s*(?:elif|else|endif)\\b)'
+        'end': '\\}|(?=\\s*#\\s*(?:elif|sinon|endif)\\b)'
         'endCaptures':
           '0':
             'name': 'punctuation.section.block.end.c'
@@ -366,7 +366,7 @@
         'match': '''(?x)
           (?:
             (?:
-              (?=\\s)(?<!else|new|return)
+              (?=\\s)(?<!sinon|new|retourner)
               (?<=\\w) \\s+  # or word + space before name
             )
           )
@@ -397,14 +397,14 @@
     'match': '''(?x)
       (?:
         (?=\\s)
-        (?:(?<=else|new|return) | (?<!\\w)) (\\s+)
+        (?:(?<=else|new|retourner) | (?<!\\w)) (\\s+)
       )?
 
       # Actual name
       (
         \\b
         (?!
-          (while|for|do|if|else|switch|catch|enumerate|return|sizeof|r?iterate)
+          (tant que|pour|faire|si|sinon|commuter|catch|enumerate|retourner|taille de|r?iterate)
           \\s* \\(
         )
         (?:(?!NS)[A-Za-z_][A-Za-z0-9_]*+\\b | ::)++
@@ -467,8 +467,8 @@
       }
     ]
   'disabled':
-    # Consume nested preprocessor if(def)s
-    'begin': '^\\s*#\\s*if(n?def)?\\b.*$'
+    # Consume nested preprocessor si(def)s
+    'begin': '^\\s*#\\s*si(n?def)?\\b.*$'
     'end': '^\\s*#\\s*endif\\b'
     'patterns': [
       {
@@ -556,7 +556,7 @@
   'operators':
     'patterns': [
       {
-        'match': '(?<![\\w$])(sizeof)(?![\\w$])'
+        'match': '(?<![\\w$])(taille de)(?![\\w$])'
         'name': 'keyword.operator.sizeof.c'
       }
       {
@@ -711,7 +711,7 @@
   'preprocessor-rule-conditional':
     'patterns': [
       {
-        'begin': '^\\s*((#)\\s*if(?:n?def)?\\b)'
+        'begin': '^\\s*((#)\\s*si(?:n?def)?\\b)'
         'beginCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -770,7 +770,7 @@
         ]
       }
       {
-        'match': '^\\s*#\\s*(else|elif|endif)\\b'
+        'match': '^\\s*#\\s*(sinon|elif|endif)\\b'
         'captures':
           '0':
             'name': 'invalid.illegal.stray-$1.c'
@@ -779,7 +779,7 @@
   'preprocessor-rule-conditional-block':
     'patterns': [
       {
-        'begin': '^\\s*((#)\\s*if(?:n?def)?\\b)'
+        'begin': '^\\s*((#)\\s*si(?:n?def)?\\b)'
         'beginCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -836,7 +836,7 @@
         ]
       }
       {
-        'match': '^\\s*#\\s*(else|elif|endif)\\b'
+        'match': '^\\s*#\\s*(sinon|elif|endif)\\b'
         'captures':
           '0':
             'name': 'invalid.illegal.stray-$1.c'
@@ -907,7 +907,7 @@
         'include': '#operators'
       }
       {
-        'match': '\\b(NULL|true|false|TRUE|FALSE)\\b'
+        'match': '\\b(NUL|true|false|TRUE|FALSE)\\b'
         'name': 'constant.language.c'
       }
       {
@@ -985,7 +985,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*(?:elif|else|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:elif|sinon|endif)\\b))'
             'patterns': [
               {
                 'begin': '\\G'
@@ -1069,7 +1069,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*(?:elif|else|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:elif|sinon|endif)\\b))'
             'patterns': [
               {
                 'begin': '\\G'
@@ -1111,7 +1111,7 @@
         'name': 'keyword.control.directive.conditional.c'
       '2':
         'name': 'punctuation.definition.directive.c'
-    'end': '(?=^\\s*((#)\\s*(?:elif|else|endif)\\b))'
+    'end': '(?=^\\s*((#)\\s*(?:elif|sinon|endif)\\b))'
     'patterns': [
       {
         'begin': '\\G'
@@ -1341,7 +1341,7 @@
         'end': '(?=^\\s*((#)\\s*(?:endif)\\b))'
         'patterns': [
           {
-            'begin': '^\\s*((#)\\s*(else)\\b)'
+            'begin': '^\\s*((#)\\s*(sinon)\\b)'
             'beginCaptures':
               '0':
                 'name': 'meta.preprocessor.c'
@@ -1415,7 +1415,7 @@
         'end': '(?=^\\s*((#)\\s*(?:endif)\\b))'
         'patterns': [
           {
-            'begin': '^\\s*((#)\\s*(else)\\b)'
+            'begin': '^\\s*((#)\\s*(sinon)\\b)'
             'beginCaptures':
               '0':
                 'name': 'meta.preprocessor.c'

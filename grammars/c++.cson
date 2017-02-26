@@ -44,7 +44,7 @@
     'name': 'keyword.control.cpp'
   }
   {
-    # Common naming idiom for C++ instanced vars: "fMemberName"
+    # Common naming idiom pour C++ instanced vars: "fMemberName"
     'match': '\\b(f|m)[A-Z]\\w*\\b'
     'name': 'variable.other.readwrite.member.cpp'
   }
@@ -80,7 +80,7 @@
     'begin': '''(?x)
       (?:
         ^ |                  # beginning of line
-        (?:(?<!else|new|=))  # or word + space before name
+        (?:(?<!sinon|new|=))  # or word + space before name
       )
       ((?:[A-Za-z_][A-Za-z0-9_]*::)*+~[A-Za-z_][A-Za-z0-9_]*) # actual name
       \\s*(\\()              # opening bracket
@@ -105,7 +105,7 @@
     'begin': '''(?x)
       (?:
         ^ |                  # beginning of line
-        (?:(?<!else|new|=))  # or word + space before name
+        (?:(?<!sinon|new|=))  # or word + space before name
       )
       ((?:[A-Za-z_][A-Za-z0-9_]*::)*+~[A-Za-z_][A-Za-z0-9_]*) # actual name
       \\s*(\\()              # opening bracket
@@ -162,7 +162,7 @@
             'name': 'punctuation.definition.parameters.c'
         'match': '''(?x)
           (
-            (?!while|for|do|if|else|switch|catch|enumerate|return|r?iterate)
+            (?!tant que|pour|faire|si|sinon|commuter|catch|enumerate|retourner|r?iterate)
             (?:\\b[A-Za-z_][A-Za-z0-9_]*+\\b|::)*+ # actual name
           )
           \\s*(\\() # opening bracket
@@ -178,7 +178,7 @@
       {
         'begin': '''(?x)
           (?:^\\s*)  # beginning of line
-          ((?!while|for|do|if|else|switch|catch|enumerate|r?iterate)[A-Za-z_][A-Za-z0-9_:]*) # actual name
+          ((?!tant que|pour|faire|si|sinon|commuter|catch|enumerate|r?iterate)[A-Za-z_][A-Za-z0-9_:]*) # actual name
           \\s*(\\()  # opening bracket
         '''
         'beginCaptures':
@@ -277,7 +277,7 @@
         ]
       }
       {
-        'begin': '\\b(class|struct)\\b\\s*([_A-Za-z][_A-Za-z0-9]*\\b)?+(\\s*:\\s*(public|protected|private)\\s*([_A-Za-z][_A-Za-z0-9]*\\b)((\\s*,\\s*(public|protected|private)\\s*[_A-Za-z][_A-Za-z0-9]*\\b)*))?'
+        'begin': '\\b(class|structure)\\b\\s*([_A-Za-z][_A-Za-z0-9]*\\b)?+(\\s*:\\s*(public|protected|private)\\s*([_A-Za-z][_A-Za-z0-9]*\\b)((\\s*,\\s*(public|protected|private)\\s*[_A-Za-z][_A-Za-z0-9]*\\b)*))?'
         'beginCaptures':
           '1':
             'name': 'storage.type.cpp'
@@ -333,7 +333,7 @@
         ]
       }
       {
-        'begin': '\\b(extern)(?=\\s*")'
+        'begin': '\\b(externe)(?=\\s*")'
         'beginCaptures':
           '1':
             'name': 'storage.modifier.cpp'
