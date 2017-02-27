@@ -58,7 +58,7 @@
   }
   {
     'begin': '''(?x)
-      ^\\s* ((\\#)\\s*define) \\s+     # define
+      ^\\s* ((\\#)\\s*définir) \\s+     # define
       ((?<id>[a-zA-Z_$][\\w$]*))  # macro name
       (?:
         (\\()
@@ -94,7 +94,7 @@
     ]
   }
   {
-    'begin': '^\\s*((#)\\s*(error|warning))\\b'
+    'begin': '^\\s*((#)\\s*(erreur|warning))\\b'
     'captures':
       '1':
         'name': 'keyword.control.directive.diagnostic.$3.c'
@@ -115,7 +115,7 @@
     ]
   }
   {
-    'begin': '^\\s*((#)\\s*(include|import))\\b\\s*'
+    'begin': '^\\s*((#)\\s*(inclure|import))\\b\\s*'
     'beginCaptures':
       '1':
         'name': 'keyword.control.directive.$3.c'
@@ -176,7 +176,7 @@
     ]
   }
   {
-    'begin': '^\\s*(?:((#)\\s*undef))\\b'
+    'begin': '^\\s*(?:((#)\\s*retirer la définition))\\b'
     'beginCaptures':
       '1':
         'name': 'keyword.control.directive.undef.c'
@@ -195,7 +195,7 @@
     ]
   }
   {
-    'begin': '^\\s*(?:((#)\\s*pragma))\\b'
+    'begin': '^\\s*(?:((#)\\s*pragmatique))\\b'
     'beginCaptures':
       '1':
         'name': 'keyword.control.directive.pragma.c'
@@ -325,7 +325,7 @@
         'beginCaptures':
           '0':
             'name': 'punctuation.section.block.begin.c'
-        'end': '\\}|(?=\\s*#\\s*(?:elif|sinon|endif)\\b)'
+        'end': '\\}|(?=\\s*#\\s*(?:sinon si|sinon|fin si)\\b)'
         'endCaptures':
           '0':
             'name': 'punctuation.section.block.end.c'
@@ -397,7 +397,7 @@
     'match': '''(?x)
       (?:
         (?=\\s)
-        (?:(?<=else|new|retourner) | (?<!\\w)) (\\s+)
+        (?:(?<=sinon|new|retourner) | (?<!\\w)) (\\s+)
       )?
 
       # Actual name
@@ -467,9 +467,9 @@
       }
     ]
   'disabled':
-    # Consume nested preprocessor si(def)s
-    'begin': '^\\s*#\\s*si(n?def)?\\b.*$'
-    'end': '^\\s*#\\s*endif\\b'
+    # Consume nested preprocessor si(non)défini
+    'begin': '^\\s*#\\s*si(( non)? défini)?\\b.*$'
+    'end': '^\\s*#\\s*fin si\\b'
     'patterns': [
       {
         'include': '#disabled'
@@ -551,7 +551,7 @@
         'name': 'punctuation.definition.directive.c'
       '4':
         'name': 'entity.name.tag.pragma-mark.c'
-    'match': '^\\s*(((#)\\s*pragma\\s+mark)\\s+(.*))'
+    'match': '^\\s*(((#)\\s*pragmatique\\s+mark)\\s+(.*))'
     'name': 'meta.section'
   'operators':
     'patterns': [
@@ -711,7 +711,7 @@
   'preprocessor-rule-conditional':
     'patterns': [
       {
-        'begin': '^\\s*((#)\\s*si(?:n?def)?\\b)'
+        'begin': '^\\s*((#)\\s*si(?:( non)? défini)?\\b)'
         'beginCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -719,7 +719,7 @@
             'name': 'keyword.control.directive.conditional.c'
           '2':
             'name': 'punctuation.definition.directive.c'
-        'end': '^\\s*((#)\\s*endif\\b)'
+        'end': '^\\s*((#)\\s*fin si\\b)'
         'endCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -750,7 +750,7 @@
             'include': '#preprocessor-rule-disabled-elif'
           }
           {
-            'begin': '^\\s*((#)\\s*elif\\b)'
+            'begin': '^\\s*((#)\\s*sinon si\\b)'
             'beginCaptures':
               '1':
                 'name': 'keyword.control.directive.conditional.c'
@@ -770,7 +770,7 @@
         ]
       }
       {
-        'match': '^\\s*#\\s*(sinon|elif|endif)\\b'
+        'match': '^\\s*#\\s*(sinon|sinon si|fin si)\\b'
         'captures':
           '0':
             'name': 'invalid.illegal.stray-$1.c'
@@ -779,7 +779,7 @@
   'preprocessor-rule-conditional-block':
     'patterns': [
       {
-        'begin': '^\\s*((#)\\s*si(?:n?def)?\\b)'
+        'begin': '^\\s*((#)\\s*si(?:( non)? défini)?\\b)'
         'beginCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -787,7 +787,7 @@
             'name': 'keyword.control.directive.conditional.c'
           '2':
             'name': 'punctuation.definition.directive.c'
-        'end': '^\\s*((#)\\s*endif\\b)'
+        'end': '^\\s*((#)\\s*fin si\\b)'
         'endCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -816,7 +816,7 @@
             'include': '#preprocessor-rule-disabled-elif'
           }
           {
-            'begin': '^\\s*((#)\\s*elif\\b)'
+            'begin': '^\\s*((#)\\s*sinon si\\b)'
             'beginCaptures':
               '1':
                 'name': 'keyword.control.directive.conditional.c'
@@ -836,7 +836,7 @@
         ]
       }
       {
-        'match': '^\\s*#\\s*(sinon|elif|endif)\\b'
+        'match': '^\\s*#\\s*(sinon|sinon si|fin si)\\b'
         'captures':
           '0':
             'name': 'invalid.illegal.stray-$1.c'
@@ -937,7 +937,7 @@
   'preprocessor-rule-disabled':
     'patterns': [
       {
-        'begin': '^\\s*((#)\\s*if\\b)(?=\\s*\\(*\\b0+\\b\\)*\\s*(?:$|//|/\\*))'
+        'begin': '^\\s*((#)\\s*si\\b)(?=\\s*\\(*\\b0+\\b\\)*\\s*(?:$|//|/\\*))'
         'beginCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -945,7 +945,7 @@
             'name': 'keyword.control.directive.conditional.c'
           '2':
             'name': 'punctuation.definition.directive.c'
-        'end': '^\\s*((#)\\s*endif\\b)'
+        'end': '^\\s*((#)\\s*fin si\\b)'
         'endCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -977,7 +977,7 @@
             'include': '#preprocessor-rule-disabled-elif'
           }
           {
-            'begin': '^\\s*((#)\\s*elif\\b)'
+            'begin': '^\\s*((#)\\s*sinon si\\b)'
             'beginCaptures':
               '0':
                 'name': 'meta.preprocessor.c'
@@ -985,7 +985,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*(?:elif|sinon|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:sinon si|sinon|fin si)\\b))'
             'patterns': [
               {
                 'begin': '\\G'
@@ -1004,7 +1004,7 @@
           }
           {
             'begin': '\\n'
-            'end': '(?=^\\s*((#)\\s*(?:else|elif|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:sinon|sinon si|fin si)\\b))'
             'contentName': 'comment.block.preprocessor.if-branch.c'
             'patterns': [
               {
@@ -1021,7 +1021,7 @@
   'preprocessor-rule-disabled-block':
     'patterns': [
       {
-        'begin': '^\\s*((#)\\s*if\\b)(?=\\s*\\(*\\b0+\\b\\)*\\s*(?:$|//|/\\*))'
+        'begin': '^\\s*((#)\\s*si\\b)(?=\\s*\\(*\\b0+\\b\\)*\\s*(?:$|//|/\\*))'
         'beginCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -1029,7 +1029,7 @@
             'name': 'keyword.control.directive.conditional.c'
           '2':
             'name': 'punctuation.definition.directive.c'
-        'end': '^\\s*((#)\\s*endif\\b)'
+        'end': '^\\s*((#)\\s*fin si\\b)'
         'endCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -1061,7 +1061,7 @@
             'include': '#preprocessor-rule-disabled-elif'
           }
           {
-            'begin': '^\\s*((#)\\s*elif\\b)'
+            'begin': '^\\s*((#)\\s*sinon si\\b)'
             'beginCaptures':
               '0':
                 'name': 'meta.preprocessor.c'
@@ -1069,7 +1069,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*(?:elif|sinon|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:sinon si|sinon|fin si)\\b))'
             'patterns': [
               {
                 'begin': '\\G'
@@ -1088,7 +1088,7 @@
           }
           {
             'begin': '\\n'
-            'end': '(?=^\\s*((#)\\s*(?:else|elif|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:sinon|sinon si|fin si)\\b))'
             'contentName': 'comment.block.preprocessor.if-branch.in-block.c'
             'patterns': [
               {
@@ -1103,7 +1103,7 @@
       }
     ]
   'preprocessor-rule-disabled-elif':
-    'begin': '^\\s*((#)\\s*elif\\b)(?=\\s*\\(*\\b0+\\b\\)*\\s*(?:$|//|/\\*))'
+    'begin': '^\\s*((#)\\s*sinon si\\b)(?=\\s*\\(*\\b0+\\b\\)*\\s*(?:$|//|/\\*))'
     'beginCaptures':
       '0':
         'name': 'meta.preprocessor.c'
@@ -1111,7 +1111,7 @@
         'name': 'keyword.control.directive.conditional.c'
       '2':
         'name': 'punctuation.definition.directive.c'
-    'end': '(?=^\\s*((#)\\s*(?:elif|sinon|endif)\\b))'
+    'end': '(?=^\\s*((#)\\s*(?:sinon si|sinon|fin si)\\b))'
     'patterns': [
       {
         'begin': '\\G'
@@ -1128,7 +1128,7 @@
       }
       {
         'begin': '\\n'
-        'end': '(?=^\\s*((#)\\s*(?:else|elif|endif)\\b))'
+        'end': '(?=^\\s*((#)\\s*(?:sinon|sinon si|fin si)\\b))'
         'contentName': 'comment.block.preprocessor.elif-branch.c'
         'patterns': [
           {
@@ -1143,7 +1143,7 @@
   'preprocessor-rule-enabled':
     'patterns': [
       {
-        'begin': '^\\s*((#)\\s*if\\b)(?=\\s*\\(*\\b0*1\\b\\)*\\s*(?:$|//|/\\*))'
+        'begin': '^\\s*((#)\\s*si\\b)(?=\\s*\\(*\\b0*1\\b\\)*\\s*(?:$|//|/\\*))'
         'beginCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -1153,7 +1153,7 @@
             'name': 'punctuation.definition.directive.c'
           '3':
             'name': 'constant.numeric.preprocessor.c'
-        'end': '^\\s*((#)\\s*endif\\b)'
+        'end': '^\\s*((#)\\s*fin si\\b)'
         'endCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -1176,7 +1176,7 @@
             'include': '#comments'
           }
           {
-            'begin': '^\\s*((#)\\s*else\\b)'
+            'begin': '^\\s*((#)\\s*sinon\\b)'
             'beginCaptures':
               '0':
                 'name': 'meta.preprocessor.c'
@@ -1184,7 +1184,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*endif\\b))'
+            'end': '(?=^\\s*((#)\\s*fin si\\b))'
             'contentName': 'comment.block.preprocessor.else-branch.c'
             'patterns': [
               {
@@ -1196,7 +1196,7 @@
             ]
           }
           {
-            'begin': '^\\s*((#)\\s*elif\\b)'
+            'begin': '^\\s*((#)\\s*sinon si\\b)'
             'beginCaptures':
               '0':
                 'name': 'meta.preprocessor.c'
@@ -1204,7 +1204,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*(?:else|elif|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:sinon|sinon si|fin si)\\b))'
             'contentName': 'comment.block.preprocessor.if-branch.c'
             'patterns': [
               {
@@ -1217,7 +1217,7 @@
           }
           {
             'begin': '\\n'
-            'end': '(?=^\\s*((#)\\s*(?:else|elif|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:sinon|sinon si|fin si)\\b))'
             'patterns': [
               {
                 'include': '$base'
@@ -1230,7 +1230,7 @@
   'preprocessor-rule-enabled-block':
     'patterns': [
       {
-        'begin': '^\\s*((#)\\s*if\\b)(?=\\s*\\(*\\b0*1\\b\\)*\\s*(?:$|//|/\\*))'
+        'begin': '^\\s*((#)\\s*si\\b)(?=\\s*\\(*\\b0*1\\b\\)*\\s*(?:$|//|/\\*))'
         'beginCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -1238,7 +1238,7 @@
             'name': 'keyword.control.directive.conditional.c'
           '2':
             'name': 'punctuation.definition.directive.c'
-        'end': '^\\s*((#)\\s*endif\\b)'
+        'end': '^\\s*((#)\\s*fin si\\b)'
         'endCaptures':
           '0':
             'name': 'meta.preprocessor.c'
@@ -1261,7 +1261,7 @@
             'include': '#comments'
           }
           {
-            'begin': '^\\s*((#)\\s*else\\b)'
+            'begin': '^\\s*((#)\\s*sinon\\b)'
             'beginCaptures':
               '0':
                 'name': 'meta.preprocessor.c'
@@ -1269,7 +1269,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*endif\\b))'
+            'end': '(?=^\\s*((#)\\s*fin si\\b))'
             'contentName': 'comment.block.preprocessor.else-branch.in-block.c'
             'patterns': [
               {
@@ -1281,7 +1281,7 @@
             ]
           }
           {
-            'begin': '^\\s*((#)\\s*elif\\b)'
+            'begin': '^\\s*((#)\\s*sinon si\\b)'
             'beginCaptures':
               '0':
                 'name': 'meta.preprocessor.c'
@@ -1289,7 +1289,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*(?:else|elif|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:sinon|sinon si|fin si)\\b))'
             'contentName': 'comment.block.preprocessor.if-branch.in-block.c'
             'patterns': [
               {
@@ -1302,7 +1302,7 @@
           }
           {
             'begin': '\\n'
-            'end': '(?=^\\s*((#)\\s*(?:else|elif|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:sinon|sinon si|fin si)\\b))'
             'patterns': [
               {
                 'include': '#block_innards'
@@ -1313,7 +1313,7 @@
       }
     ]
   'preprocessor-rule-enabled-elif':
-    'begin': '^\\s*((#)\\s*elif\\b)(?=\\s*\\(*\\b0*1\\b\\)*\\s*(?:$|//|/\\*))'
+    'begin': '^\\s*((#)\\s*sinon si\\b)(?=\\s*\\(*\\b0*1\\b\\)*\\s*(?:$|//|/\\*))'
     'beginCaptures':
       '0':
         'name': 'meta.preprocessor.c'
@@ -1321,7 +1321,7 @@
         'name': 'keyword.control.directive.conditional.c'
       '2':
         'name': 'punctuation.definition.directive.c'
-    'end': '(?=^\\s*((#)\\s*endif\\b))'
+    'end': '(?=^\\s*((#)\\s*fin si\\b))'
     'patterns': [
       {
         'begin': '\\G'
@@ -1338,7 +1338,7 @@
       }
       {
         'begin': '\\n'
-        'end': '(?=^\\s*((#)\\s*(?:endif)\\b))'
+        'end': '(?=^\\s*((#)\\s*(?:fin si)\\b))'
         'patterns': [
           {
             'begin': '^\\s*((#)\\s*(sinon)\\b)'
@@ -1349,7 +1349,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*endif\\b))'
+            'end': '(?=^\\s*((#)\\s*fin si\\b))'
             'contentName': 'comment.block.preprocessor.elif-branch.c'
             'patterns': [
               {
@@ -1361,7 +1361,7 @@
             ]
           }
           {
-            'begin': '^\\s*((#)\\s*(elif)\\b)'
+            'begin': '^\\s*((#)\\s*(sinon si)\\b)'
             'beginCaptures':
               '0':
                 'name': 'meta.preprocessor.c'
@@ -1369,7 +1369,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*(?:else|elif|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:sinon|sinon si|fin si)\\b))'
             'contentName': 'comment.block.preprocessor.elif-branch.c'
             'patterns': [
               {
@@ -1387,7 +1387,7 @@
       }
     ]
   'preprocessor-rule-enabled-elif-block':
-    'begin': '^\\s*((#)\\s*elif\\b)(?=\\s*\\(*\\b0*1\\b\\)*\\s*(?:$|//|/\\*))'
+    'begin': '^\\s*((#)\\s*sinon si\\b)(?=\\s*\\(*\\b0*1\\b\\)*\\s*(?:$|//|/\\*))'
     'beginCaptures':
       '0':
         'name': 'meta.preprocessor.c'
@@ -1395,7 +1395,7 @@
         'name': 'keyword.control.directive.conditional.c'
       '2':
         'name': 'punctuation.definition.directive.c'
-    'end': '(?=^\\s*((#)\\s*endif\\b))'
+    'end': '(?=^\\s*((#)\\s*fin si\\b))'
     'patterns': [
       {
         'begin': '\\G'
@@ -1412,7 +1412,7 @@
       }
       {
         'begin': '\\n'
-        'end': '(?=^\\s*((#)\\s*(?:endif)\\b))'
+        'end': '(?=^\\s*((#)\\s*(?:fin si)\\b))'
         'patterns': [
           {
             'begin': '^\\s*((#)\\s*(sinon)\\b)'
@@ -1423,7 +1423,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*endif\\b))'
+            'end': '(?=^\\s*((#)\\s*fin si\\b))'
             'contentName': 'comment.block.preprocessor.elif-branch.in-block.c'
             'patterns': [
               {
@@ -1435,7 +1435,7 @@
             ]
           }
           {
-            'begin': '^\\s*((#)\\s*(elif)\\b)'
+            'begin': '^\\s*((#)\\s*(sinon si)\\b)'
             'beginCaptures':
               '0':
                 'name': 'meta.preprocessor.c'
@@ -1443,7 +1443,7 @@
                 'name': 'keyword.control.directive.conditional.c'
               '2':
                 'name': 'punctuation.definition.directive.c'
-            'end': '(?=^\\s*((#)\\s*(?:else|elif|endif)\\b))'
+            'end': '(?=^\\s*((#)\\s*(?:sinon|sinon si|fin si)\\b))'
             'contentName': 'comment.block.preprocessor.elif-branch.c'
             'patterns': [
               {
@@ -1461,7 +1461,7 @@
       }
     ]
   'preprocessor-rule-enabled-else':
-    'begin': '^\\s*((#)\\s*else\\b)'
+    'begin': '^\\s*((#)\\s*sinon\\b)'
     'beginCaptures':
       '0':
         'name': 'meta.preprocessor.c'
@@ -1469,14 +1469,14 @@
         'name': 'keyword.control.directive.conditional.c'
       '2':
         'name': 'punctuation.definition.directive.c'
-    'end': '(?=^\\s*((#)\\s*endif\\b))'
+    'end': '(?=^\\s*((#)\\s*fin si\\b))'
     'patterns': [
       {
         'include': '$base'
       }
     ]
   'preprocessor-rule-enabled-else-block':
-    'begin': '^\\s*((#)\\s*else\\b)'
+    'begin': '^\\s*((#)\\s*sinon\\b)'
     'beginCaptures':
       '0':
         'name': 'meta.preprocessor.c'
@@ -1484,7 +1484,7 @@
         'name': 'keyword.control.directive.conditional.c'
       '2':
         'name': 'punctuation.definition.directive.c'
-    'end': '(?=^\\s*((#)\\s*endif\\b))'
+    'end': '(?=^\\s*((#)\\s*fin si\\b))'
     'patterns': [
       {
         'include': '#block_innards'
